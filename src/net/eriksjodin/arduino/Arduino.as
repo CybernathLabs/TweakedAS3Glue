@@ -74,7 +74,8 @@ package net.eriksjodin.arduino {
 		private var _sysExData				: ByteArray = new ByteArray();
 		
 		// private enums
-		private static const ARD_TOTAL_DIGITAL_PINS			: uint = 54; 
+//		private static const ARD_TOTAL_DIGITAL_PINS			: uint = 54; 
+		private static const ARD_TOTAL_DIGITAL_PINS			: uint = 69; 
 		
 		// computer <-> arduino messages
 		private static const ARD_DIGITAL_MESSAGE			: int = 144; 
@@ -238,9 +239,15 @@ package net.eriksjodin.arduino {
 					writeByte(_digitalPins >>40); //Tx pins 40..47
 					writeByte(0);
 				}
-				if (pin>=48 && pin <=53){
+				if (pin>=48 && pin <=55){
 					writeByte(ARD_DIGITAL_MESSAGE+6);//PORT6
 					writeByte(_digitalPins >>48); //Tx pins 48..53
+					writeByte(0);
+				}
+				// Added by SB...  Extrapolated, so I have no clue if it'll work...
+				if(pin >= 56 && pin <= 64){
+					writeByte(ARD_DIGITAL_MESSAGE+7);
+					writeByte(_digitalPins>>56);
 					writeByte(0);
 				}
 			flush();
